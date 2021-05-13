@@ -65,3 +65,26 @@ Box.test(fraser.forecast2$residuals,lag=20,type="Ljung-Box")
 plot.ts(fraser.forecast2$residuals)
 
 ############################################################
+# load data the Santa Fe Time Series Competition b2
+sleep <- read.table("time-series/b2.txt")
+colnames(sleep) <- c("heart","chest","oxygen")
+head(sleep)
+sleepts <- ts(sleep)
+plot.ts(sleepts)
+
+# generate forecasts
+# heart
+heart.ts <- ts(sleep$heart)
+heart.forecast <- HoltWinters(heart.ts, gamma=FALSE)
+heart.forecast
+plot(heart.forecast)
+# chest
+chest.ts <- ts(sleep$chest)
+chest.forecast <- HoltWinters(chest.ts, gamma=FALSE)
+chest.forecast
+plot(chest.forecast)
+# oxygen
+oxygen.ts <- ts(sleep$oxygen)
+oxygen.forecast <- HoltWinters(oxygen.ts, gamma=FALSE)
+oxygen.forecast
+plot(oxygen.forecast)
