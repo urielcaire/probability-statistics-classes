@@ -88,3 +88,25 @@ oxygen.ts <- ts(sleep$oxygen)
 oxygen.forecast <- HoltWinters(oxygen.ts, gamma=FALSE)
 oxygen.forecast
 plot(oxygen.forecast)
+
+# automated forecasting
+fraser.ets <- ets(fraser.ts)
+summary(fraser.ts)
+plot(fraser.ets)
+
+# ARIMA
+fraser.arima <- arima(fraser.ts, order=c(2,0,0))
+summary(fraser.arima)
+tsdisplay(arima.errors(fraser.arima))
+
+fraser.farima <- forecast(fraser.arima, h=8)
+summary(fraser.farima)
+plot(fraser.farima)
+
+# automated ARIMA forecasting
+fraser.aarima <- auto.arima(fraser.ts)
+summary(fraser.aarima)
+
+fraser.arima3 <- arima(fraser.ts, order=c(4,0,1),
+                       seasonal=list(order=c(2,0,0), period=12))
+summary(fraser.arima3)
